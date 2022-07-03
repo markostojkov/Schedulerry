@@ -1,0 +1,58 @@
+<div fxLayout="row wrap" class="full-height">
+  <div class="padding-xl" fxFlex="30%" fxFlex.sm="50%" fxflex.md="30%" fxFlex.xs="100%">
+    <img class="logo margin-bottom-xl" src="assets/images/schedulerry-logo.svg" />
+
+    <div *ngIf="successfullRegistration">
+      <h3 class="successfull-register light-primary-background mat-h3 padding-md">
+        {{ 'customer-register-successfull-registration' | translate }}
+      </h3>
+    </div>
+
+    <div>
+      <h1 class="mat-h1">{{ 'customer-register-title' | translate }}</h1>
+      <h3 class="mat-h3">
+        {{ 'customer-register-subtitle' | translate }}
+
+        <span class="login-button text-bold" (click)="goToLogin()">{{ 'customer-register-subtitle-login-action' | translate }}</span>
+      </h3>
+      <form class="margin-bottom-xl" [formGroup]="formGroup">
+        <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+          <input [placeholder]="'customer-register-username' | translate" matInput autocomplete="off" [formControl]="customerUsername" />
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+          <input [placeholder]="'customer-register-email' | translate" matInput autocomplete="on" [formControl]="customerEmail" />
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+          <input
+            type="password"
+            [placeholder]="'customer-register-password' | translate"
+            matInput
+            autocomplete="off"
+            [formControl]="customerPassword"
+          />
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+          <input
+            type="password"
+            [placeholder]="'customer-register-confirm-password' | translate"
+            matInput
+            autocomplete="off"
+            [formControl]="customerConfirmPassword"
+          />
+        </mat-form-field>
+        <mat-checkbox class="margin-top-md" [checked]="true" [formControl]="termsAndConditionCheckbox"></mat-checkbox>
+        <mat-label> {{ 'customer-register-agree-to-terms' | translate }} </mat-label>
+      </form>
+      <app-button
+        class="full-width"
+        [buttonType]="ButtonType.CallToAction"
+        [disabled]="!formGroup.valid || !termsAndConditionCheckbox.value"
+        (action)="register()"
+      >
+        {{ 'customer-register-button' | translate }}
+      </app-button>
+    </div>
+  </div>
+
+  <div class="register-image" fxFlex="70%" fxFlex.sm="50%" fxflex.md="70%" fxFlex.xs="0%"></div>
+</div>

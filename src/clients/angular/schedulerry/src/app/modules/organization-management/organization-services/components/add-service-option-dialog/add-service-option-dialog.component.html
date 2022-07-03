@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>{{ 'add-service-options-dialog-title' | translate }}</h1>
+<mat-dialog-content>
+  <form [formGroup]="formGroup" class="margin-bottom-md">
+    <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+      <input
+        [placeholder]="'add-service-options-dialog-service-name-placeholder' | translate"
+        matInput
+        autocomplete="off"
+        [formControl]="serviceOptionName"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+      <textarea
+        matInput
+        autocomplete="off"
+        [placeholder]="'add-service-options-dialog-service-description-placeholder' | translate"
+        [formControl]="serviceOptionDescription"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="standard" appHandleSelectFormErrors>
+      <mat-select
+        [formControl]="serviceOptionTimeLength"
+        [placeholder]="'add-service-options-dialog-service-time-length-placeholder' | translate"
+      >
+        <mat-option *ngFor="let timespan of serviceTimespans" [value]="timespan">{{
+          'add-service-options-dialog-service-time-length-value' | translate: { serviceTimespan: timespan }
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+      <input
+        [placeholder]="'add-service-options-dialog-service-price-placeholder' | translate"
+        matInput
+        autocomplete="off"
+        type="number"
+        [formControl]="serviceOptionPrice"
+      />
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="standard" appHandleSelectFormErrors>
+      <mat-select
+        [formControl]="serviceOptionCurrency"
+        [placeholder]="'add-service-options-dialog-service-currency-placeholder' | translate"
+      >
+        <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+  <app-file-upload [urlToUploadImageTo]="uploadUrl$" (imageUploadedTo)="setImageUrl($event)"></app-file-upload>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-button [buttonType]="ButtonType.Basic" (action)="dialogRef.close()">
+    {{ 'add-service-options-dialog-service-close' | translate }}
+  </app-button>
+  <app-button [buttonType]="ButtonType.CallToAction" [disabled]="!formGroup.valid" (action)="save()">
+    {{ 'add-service-options-dialog-service-save' | translate }}
+  </app-button>
+</mat-dialog-actions>

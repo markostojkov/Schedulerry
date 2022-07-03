@@ -1,0 +1,13 @@
+<div style="margin-top: -1rem; font-size: 0.75rem">
+  <mat-error *ngIf="errors?.required">{{ 'error-message-filed-required' | translate }}</mat-error>
+  <mat-error *ngIf="errors?.maxlength">{{
+    'error-message-max-length' | translate: { maxLength: errors?.maxlength?.requiredLength }
+  }}</mat-error>
+  <mat-error *ngIf="errors?.minlength">{{
+    'error-message-min-length' | translate: { minLength: errors?.minlength?.requiredLength }
+  }}</mat-error>
+  <mat-error *ngIf="errors?.email">{{ 'error-message-email' | translate }}</mat-error>
+  <mat-error *ngIf="errors?.passwordNotMatch">{{ 'error-message-password-not-match' | translate }}</mat-error>
+  <mat-error *ngIf="errors?.passwordStrengthLow">{{ 'error-message-password-weak' | translate }}</mat-error>
+  <mat-error *ngFor="let error of errors?.serverErrors">{{ error | translate }}</mat-error>
+</div>

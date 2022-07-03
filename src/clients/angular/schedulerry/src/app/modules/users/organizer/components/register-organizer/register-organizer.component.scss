@@ -1,0 +1,18 @@
+.full-width {
+  width: 100%;
+}
+
+.register-image {
+  background-image: url('../../../../../../assets/images/register-bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-button:hover {
+  cursor: pointer;
+}
+
+.successfull-register {
+  border-radius: 15px;
+}

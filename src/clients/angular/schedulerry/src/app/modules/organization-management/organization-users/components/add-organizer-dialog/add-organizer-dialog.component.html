@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{ 'add-service-dialog-title' | translate }}</h1>
+<mat-dialog-content>
+  <form [formGroup]="formGroup">
+    <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+      <input [placeholder]="'organizer-register-username' | translate" matInput autocomplete="off" [formControl]="organizerUsername" />
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+      <input [placeholder]="'organizer-register-email' | translate" matInput [formControl]="organizerEmail" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-button [buttonType]="ButtonType.Basic" (action)="dialogRef.close()">
+    {{ 'add-service-dialog-service-close' | translate }}
+  </app-button>
+  <app-button [buttonType]="ButtonType.CallToAction" [disabled]="!formGroup.valid" (action)="save()">
+    {{ 'add-service-dialog-service-save' | translate }}
+  </app-button>
+</mat-dialog-actions>

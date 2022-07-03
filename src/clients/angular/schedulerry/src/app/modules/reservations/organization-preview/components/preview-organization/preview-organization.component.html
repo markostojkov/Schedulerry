@@ -1,0 +1,41 @@
+<div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="10px" *ngIf="organization$ | async as organization">
+  <mat-card fxFlex="49%" fxFlex.sm="100%" fxFlex.xs="100%">
+    <mat-card-title>{{ 'preview-organization-title' | translate: { organizationName: organization.name } }}</mat-card-title>
+    <mat-card-content class="organization-info margin-top-xl">
+      <p>
+        {{ 'preview-organization-description' | translate }} <span>{{ organization.description }}</span>
+      </p>
+      <p>
+        {{ 'preview-organization-phone' | translate }} <span>{{ organization.phoneNumber }}</span>
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <div fxFlex="49%" fxFlex.sm="100%" fxFlex.xs="100%">
+    <div fxLayout="row wrap" fxLayoutAlign="start start">
+      <mat-card
+        appHoverElevation
+        class="margin-bottom-sm margin-right-sm"
+        fxFlex="48%"
+        fxFlex.xs="100%"
+        fxFlex.sm="100%"
+        fxFlex.md="48%"
+        *ngFor="let service of organization.services"
+      >
+        <img mat-card-image class="service-image" src="{{ service.imageUrl }}" />
+        <mat-card-title>{{
+          'preview-organization-service-title' | translate: { servicename: service.name | truncate: 20 }
+        }}</mat-card-title>
+        <mat-card-subtitle
+          >{{ 'preview-organization-description' | translate }} {{ service.description | truncate: 200 }}
+        </mat-card-subtitle>
+
+        <mat-card-actions>
+          <app-button [buttonType]="ButtonType.CallToAction" (action)="goToService(service)">{{
+            'preview-organization-service-schedule' | translate
+          }}</app-button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

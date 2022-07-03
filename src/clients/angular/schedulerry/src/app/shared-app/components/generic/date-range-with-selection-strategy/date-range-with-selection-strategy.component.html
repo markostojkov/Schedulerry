@@ -1,0 +1,9 @@
+<mat-form-field appearance="fill">
+  <mat-label>{{ 'schedule-appointment-schedule-range' | translate }}</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate #dateRangeStart />
+    <input matEndDate #dateRangeEnd (dateChange)="dateChanged(dateRangeStart, dateRangeEnd)" />
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>

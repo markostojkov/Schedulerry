@@ -1,0 +1,14 @@
+<div appLoader>
+  <div class="background-image margin-bottom-xl"></div>
+  <div class="verify-card" *ngIf="isVerified">
+    <mat-icon [inline]="true">check_circle</mat-icon>
+    <h2 class="mat-headline">{{ 'verify-organizer-success-title' | translate }}</h2>
+    <h3 class="mat-title">{{ 'verify-organizer-success-subtitle' | translate }}</h3>
+    <app-button [buttonType]="ButtonType.CallToAction" (action)="login()">{{ 'verify-organizer-success-button' | translate }}</app-button>
+  </div>
+  <div class="verify-false-card" *ngIf="!isVerified">
+    <mat-icon [inline]="true" [color]="'warn'">highlight_off</mat-icon>
+    <h2 class="mat-headline">{{ 'verify-organizer-error-title' | translate }}</h2>
+    <h3 class="mat-title">{{ 'verify-organizer-error-subtitle' | translate }}</h3>
+  </div>
+</div>

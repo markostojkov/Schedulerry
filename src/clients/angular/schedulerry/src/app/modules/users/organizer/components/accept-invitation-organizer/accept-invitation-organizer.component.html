@@ -1,0 +1,54 @@
+<div *ngIf="passwordCard" class="padding-sm">
+  <mat-card class="set-password-card margin-auto">
+    <mat-card-title> {{ 'accept-invitation-title' | translate }} </mat-card-title>
+
+    <mat-card-content>
+      <form [formGroup]="formGroup">
+        <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+          <input
+            matInput
+            type="password"
+            autocomplete="off"
+            [placeholder]="'accept-invitation-password-placeholder' | translate"
+            [formControl]="organizerPassword"
+          />
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="standard" appHandleInputFormErrors>
+          <input
+            matInput
+            type="password"
+            autocomplete="off"
+            [placeholder]="'accept-invitation-confirm-password-placeholder' | translate"
+            [formControl]="organizerConfirmPassword"
+          />
+        </mat-form-field>
+        <mat-checkbox class="margin-top-md" [checked]="true" [formControl]="termsAndConditionCheckbox"></mat-checkbox>
+        <mat-label> {{ 'accept-invitation-agree-to-terms' | translate }} </mat-label>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <app-button
+        [buttonType]="ButtonType.CallToAction"
+        [disabled]="!formGroup.valid || !termsAndConditionCheckbox.value"
+        (action)="setPasswordAndVerify()"
+      >
+        {{ 'accept-invitation-set-password-button' | translate }}
+      </app-button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div *ngIf="!passwordCard">
+  <div class="background-image margin-bottom-xl"></div>
+  <div class="verify-card" *ngIf="isVerified">
+    <mat-icon [inline]="true">check_circle</mat-icon>
+    <h2 class="mat-headline">{{ 'accept-invitation-success-title' | translate }}</h2>
+    <h3 class="mat-title">{{ 'accept-invitation-success-subtitle' | translate }}</h3>
+    <app-button [buttonType]="ButtonType.CallToAction" (action)="login()">{{ 'accept-invitation-success-button' | translate }}</app-button>
+  </div>
+  <div class="verify-false-card" *ngIf="!isVerified">
+    <mat-icon [inline]="true" [color]="'warn'">highlight_off</mat-icon>
+    <h2 class="mat-headline">{{ 'accept-invitation-error-title' | translate }}</h2>
+    <h3 class="mat-title">{{ 'accept-invitation-error-subtitle' | translate }}</h3>
+  </div>
+</div>

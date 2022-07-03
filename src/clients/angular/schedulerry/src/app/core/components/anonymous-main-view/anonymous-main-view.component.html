@@ -1,0 +1,15 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <button class="align-right" mat-button (click)="login()">
+          <mat-icon>login</mat-icon>
+          <span>{{ 'anonymous-main-view-login-toolbar' | translate }}</span>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <main class="margin-lg">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

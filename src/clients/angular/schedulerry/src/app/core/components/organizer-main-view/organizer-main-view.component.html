@@ -1,0 +1,105 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <img class="logo margin-auto margin-top-md margin-bottom-md" src="assets/images/schedulerry-logo.svg" />
+    <mat-divider></mat-divider>
+    <div>
+      <img class="avatar-image margin-auto margin-top-md" src="assets/images/default-profile.jpg" />
+      <h2 class="mat-title text-center margin-bottom-xs">
+        {{ 'organizer-main-view-welcome' | translate: { username: (user$ | async)?.username } }}
+      </h2>
+      <h3 class="mat-subheading-2 text-center margin-bottom-xs">{{ (user$ | async)?.email }}</h3>
+      <mat-divider></mat-divider>
+    </div>
+    <mat-nav-list>
+      <div>
+        <mat-list-item (click)="routeTo('dashboard')" class="parent">
+          <span class="full-width">{{ 'organizer-main-dashboard-main-menu' | translate }}</span>
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+        </mat-list-item>
+      </div>
+      <div>
+        <mat-list-item (click)="routeTo('services')" class="parent">
+          <span class="full-width">{{ 'organizer-main-services-main-menu' | translate }}</span>
+          <mat-icon mat-list-icon>settings</mat-icon>
+          <mat-icon class="menu-button" [ngClass]="{ rotated: showServicesSubmenu }" (click)="showServicesSubmenu = !showServicesSubmenu"
+            >expand_more</mat-icon
+          >
+        </mat-list-item>
+
+        <div *ngIf="showServicesSubmenu" class="padding-left-lg">
+          <div *ngFor="let service of services$ | async">
+            <a (click)="goToServiceOptions(service)" mat-list-item>{{ service.name }}</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <mat-list-item class="parent">
+          <span class="full-width">{{ 'organizer-main-organization-main-menu' | translate }}</span>
+          <mat-icon mat-list-icon>business</mat-icon>
+        </mat-list-item>
+      </div>
+      <div>
+        <mat-list-item class="parent" (click)="routeTo('organizers')">
+          <span class="full-width">{{ 'organizer-main-organization-users-main-menu' | translate }}</span>
+          <mat-icon mat-list-icon>group</mat-icon>
+        </mat-list-item>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div>
+        <mat-list-item class="parent">
+          <span class="full-width">{{ 'organizer-main-organization-manage-profile-main-menu' | translate }}</span>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+        </mat-list-item>
+      </div>
+      <div>
+        <mat-list-item (click)="logout()" class="parent">
+          <span class="full-width">{{ 'organizer-main-organization-logout-main-menu' | translate }}</span>
+          <mat-icon mat-list-icon>logout</mat-icon>
+        </mat-list-item>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div>
+        <mat-list-item class="parent">
+          <span class="full-width">{{ 'organizer-main-organization-help-main-menu' | translate }}</span>
+          <mat-icon mat-list-icon>help</mat-icon>
+        </mat-list-item>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <mat-toolbar-row class="profile-menu">
+        <div class="profile">
+          <img [matMenuTriggerFor]="mainMenu" class="margin-right-md" src="assets/images/default-profile.jpg" />
+        </div>
+      </mat-toolbar-row>
+
+      <mat-menu #mainMenu="matMenu">
+        <div>
+          <button mat-menu-item>
+            <mat-icon>account_circle</mat-icon>
+            <span>{{ 'organizer-main-organization-manage-profile-main-menu' | translate }}</span></button
+          ><button (click)="logout()" mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>{{ 'organizer-main-organization-logout-main-menu' | translate }}</span>
+          </button>
+        </div>
+      </mat-menu>
+    </mat-toolbar>
+    <main class="margin-lg">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

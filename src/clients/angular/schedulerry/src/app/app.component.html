@@ -1,0 +1,4 @@
+<main>
+  <mat-progress-bar class="global-loader" [class.hidden]="!(loader.isLoading | async)" mode="indeterminate"></mat-progress-bar>
+  <router-outlet></router-outlet>
+</main>

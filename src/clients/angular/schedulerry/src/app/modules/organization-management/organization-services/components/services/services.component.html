@@ -1,0 +1,33 @@
+<div class="margin-left-sm">
+  <h1 class="mat-title">{{ 'services-main-title' | translate }}</h1>
+  <app-button [buttonType]="ButtonType.CallToAction" (action)="newService()">{{ 'services-create-service-button' | translate }}</app-button>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="start start">
+  <mat-card
+    appHoverElevation
+    class="margin-sm"
+    *ngFor="let service of services$ | async"
+    fxFlex="32%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="32%"
+  >
+    <img mat-card-image class="service-image" src="{{ service.imageUrl }}" />
+    <mat-card-title> {{ service.name | truncate: 20 }} </mat-card-title>
+    <mat-card-subtitle>
+      {{ service.description | truncate: 200 }}
+    </mat-card-subtitle>
+    <mat-card-content>
+      <p class="mat-body-strong">
+        {{
+          'services-service-options-count' | translate: { serviceName: service.name, serviceOptionsCount: service.serviceOptions.length }
+        }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <app-button [buttonType]="ButtonType.Basic" (action)="goToServiceOptions(service)">{{
+        'services-create-service-option-button' | translate
+      }}</app-button>
+    </mat-card-actions>
+  </mat-card>
+</div>

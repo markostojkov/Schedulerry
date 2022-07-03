@@ -1,0 +1,29 @@
+<ng-container *ngIf="!working">
+  <h1 mat-dialog-title>{{ 'schedule-appointment-title' | translate }}</h1>
+  <mat-dialog-content>
+    <app-date-range-with-selection-strategy (dateRange)="dateRangeChanged($event)"></app-date-range-with-selection-strategy>
+    <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="2px">
+      <div class="text-center" fxFlex="14%" *ngFor="let date of previewScheduleIntervalDates()">
+        <div>
+          <h3 class="text-bold margin-bottom-xs">{{ date | momentDate: 'dddd' }}</h3>
+          <h4>{{ date.format('L') }}</h4>
+        </div>
+        <div class="margin-top-md">
+          <ng-container *ngFor="let schedule of getFreeTimesForDate(date)">
+            <div *ngIf="schedule.avaliable" class="padding-sm light-primary-background text-bold reservation-box">
+              {{ schedule.date | momentDate: 'HH:mm' }}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <app-button [buttonType]="ButtonType.Basic" (action)="dialogRef.close()">
+      {{ 'schedule-appointment-close' | translate }}
+    </app-button>
+    <app-button [disabled]="scheduleFormField.invalid" [buttonType]="ButtonType.CallToAction" (action)="save()">
+      {{ 'schedule-appointment-book' | translate }}
+    </app-button>
+  </mat-dialog-actions>
+</ng-container>

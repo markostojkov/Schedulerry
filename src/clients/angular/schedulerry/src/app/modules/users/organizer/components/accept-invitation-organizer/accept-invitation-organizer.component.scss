@@ -1,0 +1,39 @@
+.full-width {
+  width: 100%;
+}
+
+.set-password-card {
+  max-width: 600px;
+}
+
+.verify-card {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+.verify-card mat-icon {
+  text-align: center;
+  color: green;
+  font-size: 120px;
+}
+
+.verify-false-card {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+.verify-false-card mat-icon {
+  text-align: center;
+  font-size: 120px;
+}
+
+.background-image {
+  background-image: url('../../../../../../assets/images/register-bg.jpg');
+  background-position: center;
+  background-size: cover;
+  filter: blur(5px);
+  height: 150px;
+  width: 100%;
+}

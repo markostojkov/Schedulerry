@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>{{ 'add-service-options-schedule-dialog-title' | translate }}</h1>
+<mat-dialog-content>
+  <div *ngFor="let day of daysOfWeekForm; let i = index">
+    <mat-divider></mat-divider>
+
+    <mat-checkbox class="margin-x-md" (change)="dayScheduleCheckboxChanged(i)" [checked]="false">{{
+      getDayOfWeekFromEnum(day.dayOfWeek)
+    }}</mat-checkbox>
+    <div *ngIf="daysOfWeekEditOpen[i]">
+      <div *ngIf="day.isOpen" class="margin-left-lg">
+        <mat-form-field appearance="standard" class="margin-right-md">
+          <input
+            matInput
+            [formControl]="day.timeOpen"
+            [ngxTimepicker]="fromTimePicker"
+            [format]="24"
+            autocomplete="off"
+            [placeholder]="'add-service-options-schedule-dialog-working-from-placeholder' | translate"
+          />
+          <ngx-material-timepicker-toggle [for]="fromTimePicker" matSuffix></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker style="display: table-cell !important" #fromTimePicker [@.disabled]="true"> </ngx-material-timepicker>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <input
+            matInput
+            autocomplete="off"
+            [formControl]="day.workingTime"
+            [ngxTimepicker]="toTimePicker"
+            [format]="24"
+            [placeholder]="'add-service-options-schedule-dialog-working-to-placeholder' | translate"
+            [min]="day.timeOpen.value"
+          />
+          <mat-error *ngIf="day.workingTime.errors?.endingTimeBeforeStartingTime">{{
+            'add-service-options-schedule-dialog-ending-time-before-starting-error' | translate
+          }}</mat-error>
+          <ngx-material-timepicker-toggle [for]="toTimePicker" matSuffix></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker style="display: table-cell !important" #toTimePicker [@.disabled]="true"> </ngx-material-timepicker>
+        </mat-form-field>
+      </div>
+
+      <mat-checkbox class="margin-x-md margin-left-lg" (change)="day.isOpen = !day.isOpen" [checked]="!day.isOpen">{{
+        'add-service-options-schedule-dialog-is-closed' | translate
+      }}</mat-checkbox>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-button [buttonType]="ButtonType.Basic" (action)="dialogRef.close()">
+    {{ 'add-service-options-schedule-dialog-service-close' | translate }}
+  </app-button>
+  <app-button [buttonType]="ButtonType.CallToAction" (action)="save()">
+    {{ 'add-service-options-schedule-dialog-service-save' | translate }}
+  </app-button>
+</mat-dialog-actions>

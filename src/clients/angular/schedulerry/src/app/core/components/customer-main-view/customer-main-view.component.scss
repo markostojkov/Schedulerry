@@ -1,0 +1,26 @@
+.full-width {
+  width: 100%;
+}
+
+.profile-menu {
+  width: 100%;
+  text-align: right;
+}
+
+.profile {
+  width: 100%;
+}
+
+.profile img {
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.profile img:hover {
+  cursor: pointer;
+}

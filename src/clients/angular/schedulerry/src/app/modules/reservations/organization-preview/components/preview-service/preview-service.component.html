@@ -1,0 +1,48 @@
+<ng-container *ngIf="service$ | async as service">
+  <div class="margin-left-sm">
+    <h1 class="mat-title">{{ 'preview-service-title' | translate: { serviceName: service.name } }}</h1>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="start start">
+    <mat-card
+      fxFlex="31%"
+      fxFlex.xs="100%"
+      fxFlex.sm="100%"
+      fxFlex.md="48%"
+      appHoverElevation
+      class="margin-sm"
+      *ngFor="let serviceOption of service?.serviceOptions"
+    >
+      <img mat-card-image class="service-image" src="{{ serviceOption?.imageUrl }}" />
+      <mat-card-title> {{ serviceOption?.name | truncate: 20 }} </mat-card-title>
+      <mat-card-subtitle>
+        {{ serviceOption?.description | truncate: 200 }}
+      </mat-card-subtitle>
+      <mat-card-content>
+        <p>
+          {{ 'services-options-price-text' | translate }}
+          {{ serviceOption.price | currency: serviceOption.currency }}
+        </p>
+        <p>
+          {{ 'services-options-slot-duration-text' | translate: { serviceDuration: serviceOption.serviceOptionTimeLength } }}
+        </p>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <table>
+          <tbody>
+            <tr *ngFor="let serviceSchedule of serviceOption?.serviceOptionSchedules">
+              <td class="text-bold padding-right-lg">{{ getDayOfWeekFromEnum(serviceSchedule.dayOfWeek) }}</td>
+              <td class>{{ getWorkingTime(serviceSchedule) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-divider></mat-divider>
+      </mat-card-content>
+      <mat-card-actions>
+        <app-button [buttonType]="ButtonType.Basic" (action)="bookAppointment(serviceOption, service.uid)">{{
+          'preview-service-book-appointment' | translate
+        }}</app-button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>
